@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 
 
 @api_view()
@@ -45,3 +47,19 @@ def todo_detail(request, id):
     if request.method == 'DELETE':
         todo.delete()
         return Response({'message': 'Todo deleted succesfuly'})
+
+
+class Todos(ListCreateAPIView):
+    queryset = Todo.objects.filter(is_done=False)
+    serializer_class = TodoSerializers
+
+
+class TodoDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializers
+    lookup_field = 'id'  # default pk olduğu için urlde yazanı belirtiyoruz
+
+
+class TodoMVS(ModelViewSet):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializers
