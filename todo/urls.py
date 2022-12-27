@@ -16,8 +16,8 @@ urlpatterns = [
     path('', todo_home),
     # path('list-create/', todo_list_create),
     # path('detail/<int:id>', todo_detail),
-    path('list-create/', Todos.as_view()),
-    path('detail/<int:id>', TodoDetail.as_view()),
+    # path('list-create/', Todos.as_view()),
+    # path('detail/<int:id>', TodoDetail.as_view()),
     path("", include(router.urls))
 ]
 
